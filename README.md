@@ -1,1 +1,0 @@
-# amanasmuei.github.io
