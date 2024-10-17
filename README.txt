@@ -1,5 +1,3 @@
-This is personal website of Sharan.
-
 
 Credits:
 	Website Design:
@@ -11,7 +9,3 @@ Credits:
 
 	Icons:
 		Font Awesome (fontawesome.io)
-
-	Other:
-		jQuery (jquery.com)
-		Responsive Tools (github.com/ajlkn/responsive-tools)
