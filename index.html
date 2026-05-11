@@ -1,768 +1,427 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aman — Full-Stack Software Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aman — Full-Stack Software Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    
+    .glass {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-  :root {
-    --bg: #050a14;
-    --bg2: #0a1628;
-    --bg3: #0f1e38;
-    --blue: #1a7eff;
-    --blue-glow: rgba(26,126,255,0.25);
-    --orange: #ff6b2b;
-    --orange-glow: rgba(255,107,43,0.2);
-    --cyan: #00d4ff;
-    --green: #00e5a0;
-    --purple: #9b59ff;
-    --gold: #ffd166;
-    --text: #e8edf5;
-    --text-dim: #7a8fa8;
-    --border: rgba(255,255,255,0.07);
-    --glass: rgba(255,255,255,0.04);
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
-
-  /* ── Animated gradient bg ── */
-  body::before {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at 20% 20%, rgba(26,126,255,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(255,107,43,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(0,212,255,0.04) 0%, transparent 60%);
-    animation: bgPulse 12s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-  }
-  @keyframes bgPulse {
-    0%   { transform: translate(0,0) rotate(0deg); }
-    100% { transform: translate(2%,2%) rotate(3deg); }
-  }
-
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(5,10,20,0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 0;
-  }
-  nav .container { display: flex; justify-content: space-between; align-items: center; }
-  .nav-logo {
-    font-weight: 800; font-size: 1.2rem;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .nav-links { display: flex; gap: 32px; }
-  .nav-links a {
-    color: var(--text-dim); text-decoration: none; font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 120px 0 80px;
-    position: relative;
-  }
-  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(26,126,255,0.1);
-    border: 1px solid rgba(26,126,255,0.3);
-    border-radius: 100px;
-    padding: 6px 16px;
-    font-size: 0.82rem; color: var(--cyan);
-    margin-bottom: 24px;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-tag span { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
-
-  h1 {
-    font-size: clamp(2.8rem, 5vw, 4.5rem);
-    font-weight: 900;
-    line-height: 1.05;
-    margin-bottom: 16px;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-  .gradient-text {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 50%, var(--orange) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .hero-sub {
-    font-size: 1.1rem; color: var(--text-dim); max-width: 480px;
-    margin-bottom: 40px;
-    animation: fadeUp 0.6s 0.2s ease both;
-    line-height: 1.7;
-  }
-  .hero-cta {
-    display: flex; gap: 16px; flex-wrap: wrap;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    color: #fff; border: none; padding: 14px 28px;
-    border-radius: 12px; font-weight: 600; font-size: 0.95rem;
-    cursor: pointer; text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 0 30px var(--blue-glow);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--blue-glow); }
-  .btn-ghost {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border); padding: 14px 28px;
-    border-radius: 12px; font-weight: 600; font-size: 0.95rem;
-    cursor: pointer; text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: var(--glass); }
-
-  /* hero visual */
-  .hero-visual {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-  .mini-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  .mini-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
-  .mini-card:nth-child(1) { grid-column: span 2; }
-  .mini-card-icon { font-size: 1.8rem; margin-bottom: 8px; }
-  .mini-card-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
-  .mini-card-desc { font-size: 0.78rem; color: var(--text-dim); }
-  .mini-badge {
-    display: inline-block; font-size: 0.7rem; padding: 2px 8px;
-    border-radius: 100px; margin-top: 8px; font-weight: 600;
-  }
-
-  /* ── STATS ── */
-  #stats { padding: 40px 0; }
-  .stats-bar {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-  }
-  .stat-item {
-    padding: 32px 24px; text-align: center;
-    border-right: 1px solid var(--border);
-    transition: background 0.2s;
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-item:hover { background: rgba(255,255,255,0.03); }
-  .stat-num {
-    font-size: 2.5rem; font-weight: 900;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat-label { font-size: 0.85rem; color: var(--text-dim); font-weight: 500; }
-
-  /* ── SECTIONS ── */
-  section { padding: 80px 0; }
-  .section-header { text-align: center; margin-bottom: 56px; }
-  .section-eyebrow {
-    display: inline-block;
-    font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--blue); margin-bottom: 12px;
-  }
-  h2 {
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    font-weight: 800; line-height: 1.15;
-    margin-bottom: 16px;
-  }
-  .section-sub { color: var(--text-dim); font-size: 1rem; max-width: 520px; margin: 0 auto; }
-
-  /* ── PROJECT CARDS ── */
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
-  .project-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    position: relative; overflow: hidden;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .project-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.12); }
-  .project-card:hover::before { opacity: 1; }
-
-  /* Color themes */
-  .card-cyan  { --accent: var(--cyan);  --accent-glow: rgba(0,212,255,0.15); }
-  .card-green { --accent: var(--green); --accent-glow: rgba(0,229,160,0.15); }
-  .card-gold  { --accent: var(--gold);  --accent-glow: rgba(255,209,102,0.15); }
-  .card-purple{ --accent: var(--purple);--accent-glow: rgba(155,89,255,0.15); }
-  .card-blue  { --accent: var(--blue);  --accent-glow: rgba(26,126,255,0.15); }
-  .card-orange{ --accent: var(--orange);--accent-glow: rgba(255,107,43,0.15); }
-
-  .project-card:hover { box-shadow: 0 20px 60px var(--accent-glow, rgba(26,126,255,0.1)); }
-  .project-card::before { background: linear-gradient(90deg, transparent, var(--accent, var(--blue)), transparent); }
-
-  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-  .card-icon { font-size: 2rem; }
-  .card-status {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 0.72rem; font-weight: 600;
-    background: rgba(0,229,160,0.1);
-    color: var(--green); border: 1px solid rgba(0,229,160,0.2);
-    border-radius: 100px; padding: 3px 10px;
-  }
-  .card-status::before { content: ''; width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
-
-  .card-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
-  .card-type { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
-  .card-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 20px; }
-
-  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag {
-    font-size: 0.72rem; font-weight: 600;
-    padding: 4px 10px; border-radius: 6px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: var(--text-dim);
-    font-family: 'JetBrains Mono', monospace;
-    transition: background 0.2s, color 0.2s;
-  }
-  .project-card:hover .tag { background: rgba(255,255,255,0.08); }
-
-  .card-footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-  .card-link { font-size: 0.82rem; color: var(--accent, var(--blue)); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-  .card-link:hover { gap: 8px; }
-  .card-link::after { content: '→'; transition: margin 0.2s; }
-  .card-priority {
-    font-size: 0.7rem; padding: 2px 8px; border-radius: 100px;
-    font-weight: 700;
-  }
-  .priority-high { background: rgba(255,107,43,0.15); color: var(--orange); }
-  .priority-medium { background: rgba(255,209,102,0.15); color: var(--gold); }
-
-  /* ── SKILLS ── */
-  #skills { background: var(--bg2); }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-  .skill-group {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px;
-    backdrop-filter: blur(10px);
-    transition: border-color 0.2s;
-  }
-  .skill-group:hover { border-color: rgba(255,255,255,0.12); }
-  .skill-group-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .skill-tag {
-    font-size: 0.8rem; font-weight: 600;
-    padding: 5px 12px; border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: default;
-  }
-  .skill-tag:hover { transform: translateY(-2px); }
-  .st-blue   { background: rgba(26,126,255,0.12);  color: #60a5fa; border: 1px solid rgba(26,126,255,0.2); }
-  .st-cyan   { background: rgba(0,212,255,0.1);    color: var(--cyan); border: 1px solid rgba(0,212,255,0.2); }
-  .st-green  { background: rgba(0,229,160,0.1);    color: var(--green); border: 1px solid rgba(0,229,160,0.2); }
-  .st-orange { background: rgba(255,107,43,0.1);   color: var(--orange); border: 1px solid rgba(255,107,43,0.2); }
-  .st-purple { background: rgba(155,89,255,0.1);   color: var(--purple); border: 1px solid rgba(155,89,255,0.2); }
-  .st-gold   { background: rgba(255,209,102,0.1);  color: var(--gold); border: 1px solid rgba(255,209,102,0.2); }
-
-  /* ── PROFESSIONAL SECTION ── */
-  #professional { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
-  .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .pro-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  .pro-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.1); }
-  .pro-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .pro-title { font-size: 1rem; font-weight: 700; }
-  .pro-type { font-size: 0.72rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
-  .pro-desc { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 60px 0 40px;
-  }
-  .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-  .footer-brand-name {
-    font-size: 1.5rem; font-weight: 800;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    margin-bottom: 8px;
-  }
-  .footer-tagline { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; max-width: 300px; }
-  .footer-col h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 14px; }
-  .footer-col a { display: block; color: var(--text-dim); text-decoration: none; font-size: 0.88rem; margin-bottom: 8px; transition: color 0.2s; }
-  .footer-col a:hover { color: var(--text); }
-  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-  .footer-copy { font-size: 0.82rem; color: var(--text-dim); }
-  .footer-love { font-size: 0.82rem; color: var(--text-dim); }
-  .footer-love span { color: var(--orange); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── DIVIDER ── */
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-visual { display: none; }
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    .stat-item:nth-child(2) { border-right: none; }
-    .footer-content { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-  }
-
-  /* scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-</style>
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+    
+    /* Mesh Background */
+    .mesh-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
+                  radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.15), transparent 25%);
+      filter: blur(60px);
+      animation: meshPulse 10s ease-in-out infinite alternate;
+    }
+    @keyframes meshPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+    
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #374151; }
+  </style>
 </head>
-<body>
+<body class="antialiased selection:bg-blue-500/30 selection:text-blue-200 relative">
+  <div class="mesh-bg"></div>
 
-<!-- NAV -->
-<nav>
-  <div class="container">
-    <div class="nav-logo">AMAN</div>
-    <div class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#professional">Experience</a>
-      <a href="#contact">Contact</a>
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full z-50 glass border-b border-gray-800 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="#" class="text-2xl font-black tracking-tighter gradient-text">AMAN.</a>
+      <div class="hidden md:flex gap-8">
+        <a href="#projects" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Projects</a>
+        <a href="#skills" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Skills</a>
+        <a href="#experience" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Experience</a>
+      </div>
+      <a href="mailto:contact@example.com" class="px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-medium transition-all hover:scale-105">Let's Talk</a>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-grid">
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <div id="particles-js"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10 w-full grid lg:grid-cols-2 gap-12 items-center">
+      <div class="gsap-hero">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-8">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          Available for opportunities
+        </div>
+        <h1 class="text-5xl md:text-7xl font-black leading-[1.1] mb-6">
+          I build platforms<br>
+          <span class="text-gray-400 font-light">that</span> <span class="gradient-text type-text"></span>
+        </h1>
+        <p class="text-lg text-gray-400 mb-10 max-w-lg leading-relaxed">
+          Full-Stack Software Engineer based in Malaysia — crafting scalable web platforms, AI systems, and cloud infrastructure that make a real difference.
+        </p>
+        <div class="flex gap-4">
+          <a href="#projects" class="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_40px_rgba(37,99,235,0.5)] hover:-translate-y-1">View My Work</a>
+          <a href="#experience" class="px-8 py-4 rounded-xl glass hover:bg-white/10 font-semibold transition-all">Experience</a>
+        </div>
+      </div>
+      
+      <!-- Stats / Right Side -->
+      <div class="grid grid-cols-2 gap-4 gsap-hero-right">
+        <div class="glass p-6 rounded-2xl border-t-2 border-t-blue-500 card-hover">
+          <div class="text-4xl font-black text-white mb-2">8<span class="text-blue-500">+</span></div>
+          <div class="text-sm text-gray-400 font-medium">Active Projects</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-t-2 border-t-cyan-500 card-hover mt-8">
+          <div class="text-4xl font-black text-white mb-2">5<span class="text-cyan-500">+</span></div>
+          <div class="text-sm text-gray-400 font-medium">Languages Mastered</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-t-2 border-t-purple-500 card-hover -mt-8">
+          <div class="text-4xl font-black text-white mb-2">3<span class="text-purple-500">+</span></div>
+          <div class="text-sm text-gray-400 font-medium">Years Building</div>
+        </div>
+        <div class="glass p-6 rounded-2xl border-t-2 border-t-green-500 card-hover">
+          <div class="text-4xl font-black text-white mb-2">2</div>
+          <div class="text-sm text-gray-400 font-medium">Live Production Platforms</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-32 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-16 gsap-fade-up">
+        <span class="text-blue-500 font-bold tracking-wider uppercase text-sm mb-4 block">Personal Projects</span>
+        <h2 class="text-4xl md:text-5xl font-black mb-6">Things I <span class="gradient-text">Built & Own</span></h2>
+        <p class="text-gray-400 max-w-2xl text-lg">From maritime platforms to mosque systems — real products solving real problems in Malaysia and beyond.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- GoSea -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-t border-t-cyan-500/30">
+          <div class="flex justify-between items-start mb-6">
+            <div class="text-4xl">⛵</div>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded-full text-xs font-semibold flex items-center gap-2"><span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Active</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">GoSea</h3>
+          <p class="mono text-sm text-cyan-400 mb-4">// fullstack-webapp</p>
+          <p class="text-gray-400 mb-6 leading-relaxed">Multi-role boat rental and services platform connecting customers, boat owners, and affiliates. Deployed live with Docker + k3s production infrastructure.</p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Next.js 14</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Express.js</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">PostgreSQL</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">k3s</span>
+          </div>
+        </div>
+
+        <!-- GoMasjid -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-t border-t-green-500/30">
+          <div class="flex justify-between items-start mb-6">
+            <div class="text-4xl">🕌</div>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded-full text-xs font-semibold flex items-center gap-2"><span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Active</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">GoMasjid</h3>
+          <p class="mono text-sm text-green-400 mb-4">// mosque-management</p>
+          <p class="text-gray-400 mb-6 leading-relaxed">Comprehensive mosque management system with GoMasjidPro portal, multi-service Go backend, and integrated GoMasjidPay payment service.</p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Go</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Next.js 16</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Kubernetes</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Docker</span>
+          </div>
+        </div>
+        
+        <!-- ScalpBot -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-t border-t-yellow-500/30">
+          <div class="flex justify-between items-start mb-6">
+            <div class="text-4xl">📈</div>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded-full text-xs font-semibold flex items-center gap-2"><span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Active</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">ScalpBot</h3>
+          <p class="mono text-sm text-yellow-400 mb-4">// trading-bot</p>
+          <p class="text-gray-400 mb-6 leading-relaxed">Automated crypto scalp trading engine using EMA cross + volume filter strategy on BTC/USDT & ETH/USDT. Real-time WebSocket feeds.</p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Python 3.11</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Binance</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">WebSocket</span>
+          </div>
+        </div>
+
+        <!-- MyResidence -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-t border-t-purple-500/30">
+          <div class="flex justify-between items-start mb-6">
+            <div class="text-4xl">🏠</div>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded-full text-xs font-semibold flex items-center gap-2"><span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Active</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">MyResidence</h3>
+          <p class="mono text-sm text-purple-400 mb-4">// web-mobile</p>
+          <p class="text-gray-400 mb-6 leading-relaxed">End-to-end residential management platform with web portal, Go backend, and React Native mobile app for residents.</p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">React Native</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Go 1.26</span>
+            <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium mono text-gray-300">Next.js</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-32 bg-gray-900/50 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 gsap-fade-up">
+        <span class="text-blue-500 font-bold tracking-wider uppercase text-sm mb-4 block">Technical Arsenal</span>
+        <h2 class="text-4xl md:text-5xl font-black mb-6">Skills & <span class="gradient-text">Technologies</span></h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="glass p-6 rounded-2xl gsap-fade-up">
+          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Languages</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-sm font-semibold">Go</span>
+            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-sm font-semibold">TypeScript</span>
+            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-sm font-semibold">Python</span>
+            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded text-sm font-semibold">PHP</span>
+          </div>
+        </div>
+        <div class="glass p-6 rounded-2xl gsap-fade-up">
+          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Frontend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded text-sm font-semibold">Next.js</span>
+            <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded text-sm font-semibold">React</span>
+            <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded text-sm font-semibold">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="glass p-6 rounded-2xl gsap-fade-up">
+          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Backend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded text-sm font-semibold">Go Fiber</span>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded text-sm font-semibold">FastAPI</span>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded text-sm font-semibold">Express.js</span>
+            <span class="px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded text-sm font-semibold">Laravel</span>
+          </div>
+        </div>
+        <div class="glass p-6 rounded-2xl gsap-fade-up">
+          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Infrastructure</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-orange-500/10 text-orange-400 border border-orange-500/20 rounded text-sm font-semibold">Docker</span>
+            <span class="px-3 py-1 bg-orange-500/10 text-orange-400 border border-orange-500/20 rounded text-sm font-semibold">Kubernetes</span>
+            <span class="px-3 py-1 bg-orange-500/10 text-orange-400 border border-orange-500/20 rounded text-sm font-semibold">AWS S3</span>
+          </div>
+        </div>
+        <div class="glass p-6 rounded-2xl gsap-fade-up">
+          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Databases</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded text-sm font-semibold">PostgreSQL</span>
+            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded text-sm font-semibold">Redis</span>
+            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded text-sm font-semibold">MySQL</span>
+          </div>
+        </div>
+        <div class="glass p-6 rounded-2xl gsap-fade-up">
+          <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Tools</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded text-sm font-semibold">WebSocket</span>
+            <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded text-sm font-semibold">JWT</span>
+            <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded text-sm font-semibold">Git</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-32 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-16 gsap-fade-up">
+        <span class="text-blue-500 font-bold tracking-wider uppercase text-sm mb-4 block">Professional Work</span>
+        <h2 class="text-4xl md:text-5xl font-black mb-6">Enterprise <span class="gradient-text">Contributions</span></h2>
+      </div>
+
+      <div class="space-y-6">
+        <!-- GPUaaS -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-l-4 border-l-blue-500">
+          <div class="md:flex justify-between items-start gap-8">
+            <div class="flex-1">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-3xl">🖥️</div>
+                <div>
+                  <h3 class="text-2xl font-bold">GPUaaS Platform</h3>
+                  <p class="mono text-sm text-blue-400">// enterprise-saas</p>
+                </div>
+              </div>
+              <p class="text-gray-400 leading-relaxed mb-6">GPU-as-a-Service SaaS with multi-tenant billing, IAM, and channel partner management. Full org hierarchy: platform → partner → reseller → customer.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Next.js 16</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Go Fiber</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tanya -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-l-4 border-l-purple-500">
+          <div class="md:flex justify-between items-start gap-8">
+            <div class="flex-1">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-3xl">🤖</div>
+                <div>
+                  <h3 class="text-2xl font-bold">Tanya AI</h3>
+                  <p class="mono text-sm text-purple-400">// ai-chatbot</p>
+                </div>
+              </div>
+              <p class="text-gray-400 leading-relaxed mb-6">AI-powered Interactive Support & Help Agent platform with async processing. Multi-service architecture with FastAPI, Celery queues, and Angular frontend.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Python 3.11</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">FastAPI</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Angular 18</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SimiDigital -->
+        <div class="glass p-8 rounded-3xl card-hover gsap-fade-up border-l-4 border-l-cyan-500">
+          <div class="md:flex justify-between items-start gap-8">
+            <div class="flex-1">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="text-3xl">⚡</div>
+                <div>
+                  <h3 class="text-2xl font-bold">SimiDigital</h3>
+                  <p class="mono text-sm text-cyan-400">// microservices</p>
+                </div>
+              </div>
+              <p class="text-gray-400 leading-relaxed mb-6">Distributed digital platform with a Go API gateway routing to 4 specialized Go microservices (Capry, Edge Facilities, FA, PayMe) and a Next.js web frontend.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Go 1.20</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Microservices</span>
+                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-medium mono text-gray-300">Kubernetes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-black/50 py-12 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
       <div>
-        <div class="hero-tag"><span></span> Available for opportunities</div>
-        <h1>I build platforms<br>that <span class="gradient-text">serve people.</span></h1>
-        <p class="hero-sub">Full-Stack Software Engineer based in Malaysia — crafting scalable web platforms, AI systems, and cloud infrastructure that make a real difference.</p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn-primary">View My Work</a>
-          <a href="#contact" class="btn-ghost">Get in Touch</a>
-        </div>
+        <h2 class="text-2xl font-black gradient-text mb-2">AMAN.</h2>
+        <p class="text-gray-500 text-sm max-w-sm">Full-Stack Software Engineer building platforms that serve people. Based in Malaysia.</p>
       </div>
-      <div class="hero-visual">
-        <div class="mini-card card-cyan" style="border-top: 2px solid var(--cyan);">
-          <div class="mini-card-icon">⛵</div>
-          <div class="mini-card-name">GoSea Platform</div>
-          <div class="mini-card-desc">Boat rental & services</div>
-          
-        </div>
-        <div class="mini-card card-green" style="border-top: 2px solid var(--green);">
-          <div class="mini-card-icon">🕌</div>
-          <div class="mini-card-name">GoMasjid</div>
-          <div class="mini-card-desc">Mosque management</div>
-        </div>
-        <div class="mini-card card-purple" style="border-top: 2px solid var(--purple);">
-          <div class="mini-card-icon">🏠</div>
-          <div class="mini-card-name">MyResidence</div>
-          <div class="mini-card-desc">Residential platform</div>
-        </div>
+      <div class="text-gray-500 text-sm">
+        © 2026 Aman. Built with <span class="text-orange-500">♥</span> and bismillah.
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- STATS -->
-<div id="stats">
-  <div class="container">
-    <div class="stats-bar fade-in">
-      <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">Active Projects</div></div>
-      <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Languages Mastered</div></div>
-      <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Years Building</div></div>
-      <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Live Production Platforms</div></div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- PERSONAL PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-eyebrow">Personal Projects</div>
-      <h2>Things I <span class="gradient-text">Built & Own</span></h2>
-      <p class="section-sub">From maritime platforms to mosque systems — real products solving real problems in Malaysia and beyond.</p>
-    </div>
-    <div class="projects-grid">
-
-      <!-- GoSea -->
-      <div class="project-card card-cyan fade-in">
-        <div class="card-header">
-          <div class="card-icon">⛵</div>
-          <div class="card-status">Active</div>
-        </div>
-        <div class="card-title">GoSea</div>
-        <div class="card-type">// fullstack-webapp · Multi-Role Platform</div>
-        <div class="card-desc">Multi-role boat rental and services platform connecting customers, boat owners, and affiliates. Deployed live with Docker + k3s production infrastructure.</div>
-        <div class="card-tags">
-          <span class="tag">Next.js 14</span><span class="tag">React 18</span><span class="tag">Tailwind CSS</span>
-          <span class="tag">Express.js</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span>
-          <span class="tag">Redis</span><span class="tag">Docker</span><span class="tag">k3s</span>
-        </div>
-        <div class="card-footer">
-          
-          <span class="card-priority priority-high">High Priority</span>
-        </div>
-      </div>
-
-      <!-- GoMasjid -->
-      <div class="project-card card-green fade-in">
-        <div class="card-header">
-          <div class="card-icon">🕌</div>
-          <div class="card-status">Active</div>
-        </div>
-        <div class="card-title">GoMasjid</div>
-        <div class="card-type">// fullstack-webapp · Mosque Management</div>
-        <div class="card-desc">Comprehensive mosque management system with GoMasjidPro portal, multi-service Go backend, and integrated GoMasjidPay payment service. Built for the community.</div>
-        <div class="card-tags">
-          <span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">shadcn/ui</span>
-          <span class="tag">Tailwind CSS 4</span><span class="tag">Go</span><span class="tag">Kubernetes</span>
-          <span class="tag">DOKS</span><span class="tag">Docker</span>
-        </div>
-        <div class="card-footer">
-          <a href="#projects" class="card-link">View Project</a>
-          <span class="card-priority priority-high">High Priority</span>
-        </div>
-      </div>
-
-      <!-- ScalpBot -->
-      <div class="project-card card-gold fade-in">
-        <div class="card-header">
-          <div class="card-icon">📈</div>
-          <div class="card-status">Active</div>
-        </div>
-        <div class="card-title">ScalpBot</div>
-        <div class="card-type">// trading-bot · Algorithmic Trading</div>
-        <div class="card-desc">Automated crypto scalp trading engine using EMA cross + volume filter strategy on BTC/USDT & ETH/USDT. Real-time WebSocket feeds with full backtest infrastructure.</div>
-        <div class="card-tags">
-          <span class="tag">Python 3.11</span><span class="tag">Binance</span><span class="tag">ccxt</span>
-          <span class="tag">WebSocket</span><span class="tag">PostgreSQL</span><span class="tag">EMA Strategy</span>
-        </div>
-        <div class="card-footer">
-          <a href="#projects" class="card-link">View Project</a>
-          <span class="card-priority priority-medium">Medium Priority</span>
-        </div>
-      </div>
-
-      <!-- MyResidence -->
-      <div class="project-card card-purple fade-in">
-        <div class="card-header">
-          <div class="card-icon">🏠</div>
-          <div class="card-status">Active</div>
-        </div>
-        <div class="card-title">MyResidence</div>
-        <div class="card-type">// fullstack-webapp · Web + Mobile</div>
-        <div class="card-desc">End-to-end residential management platform with three surfaces: web portal, Go backend, and a React Native mobile app for residents and property management.</div>
-        <div class="card-tags">
-          <span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Go 1.26</span>
-          <span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Radix UI</span>
-          <span class="tag">Docker</span>
-        </div>
-        <div class="card-footer">
-          <a href="#projects" class="card-link">View Project</a>
-          <span class="card-priority priority-medium">Medium Priority</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-eyebrow">Technical Arsenal</div>
-      <h2>Skills & <span class="gradient-text">Technologies</span></h2>
-      <p class="section-sub">Across frontend, backend, mobile, and infrastructure — I build end-to-end.</p>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-group fade-in">
-        <div class="skill-group-title">Languages</div>
-        <div class="skill-tags">
-          <span class="skill-tag st-blue">Go</span>
-          <span class="skill-tag st-blue">TypeScript</span>
-          <span class="skill-tag st-blue">JavaScript</span>
-          <span class="skill-tag st-blue">Python</span>
-          <span class="skill-tag st-blue">PHP</span>
-        </div>
-      </div>
-      <div class="skill-group fade-in">
-        <div class="skill-group-title">Frontend</div>
-        <div class="skill-tags">
-          <span class="skill-tag st-cyan">Next.js</span>
-          <span class="skill-tag st-cyan">React</span>
-          <span class="skill-tag st-cyan">React Native</span>
-          <span class="skill-tag st-cyan">Angular</span>
-          <span class="skill-tag st-cyan">Tailwind CSS</span>
-          <span class="skill-tag st-cyan">shadcn/ui</span>
-          <span class="skill-tag st-cyan">Radix UI</span>
-        </div>
-      </div>
-      <div class="skill-group fade-in">
-        <div class="skill-group-title">Backend</div>
-        <div class="skill-tags">
-          <span class="skill-tag st-green">Go Fiber</span>
-          <span class="skill-tag st-green">Express.js</span>
-          <span class="skill-tag st-green">FastAPI</span>
-          <span class="skill-tag st-green">Laravel</span>
-          <span class="skill-tag st-green">Prisma</span>
-          <span class="skill-tag st-green">Celery</span>
-        </div>
-      </div>
-      <div class="skill-group fade-in">
-        <div class="skill-group-title">Databases</div>
-        <div class="skill-tags">
-          <span class="skill-tag st-purple">PostgreSQL</span>
-          <span class="skill-tag st-purple">Redis</span>
-          <span class="skill-tag st-purple">MySQL</span>
-        </div>
-      </div>
-      <div class="skill-group fade-in">
-        <div class="skill-group-title">DevOps & Infrastructure</div>
-        <div class="skill-tags">
-          <span class="skill-tag st-orange">Docker</span>
-          <span class="skill-tag st-orange">Kubernetes</span>
-          <span class="skill-tag st-orange">k3s</span>
-          <span class="skill-tag st-orange">DOKS</span>
-          <span class="skill-tag st-orange">Traefik</span>
-          <span class="skill-tag st-orange">AWS S3</span>
-        </div>
-      </div>
-      <div class="skill-group fade-in">
-        <div class="skill-group-title">Tools & Protocols</div>
-        <div class="skill-tags">
-          <span class="skill-tag st-gold">WebSocket</span>
-          <span class="skill-tag st-gold">JWT</span>
-          <span class="skill-tag st-gold">LDAP</span>
-          <span class="skill-tag st-gold">REST API</span>
-          <span class="skill-tag st-gold">ccxt</span>
-          <span class="skill-tag st-gold">Git</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROFESSIONAL -->
-<section id="professional">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-eyebrow">Professional Work</div>
-      <h2>Enterprise <span class="gradient-text">Contributions</span></h2>
-      <p class="section-sub">Production-grade systems built for organizations — from AI platforms to GPU infrastructure.</p>
-    </div>
-    <div class="pro-grid">
-
-      <div class="pro-card fade-in" style="border-top: 2px solid var(--blue);">
-        <div class="pro-card-top">
-          <div style="font-size:1.5rem;">🖥️</div>
-          <span class="card-status">Active</span>
-        </div>
-        <div class="pro-title">GPUaaS Platform</div>
-        <div class="pro-type">// enterprise-saas · Multi-Tenant Cloud</div>
-        <div class="pro-desc">GPU-as-a-Service SaaS with multi-tenant billing, IAM, and channel partner management. Full org hierarchy: platform → partner → reseller → customer.</div>
-        <div class="card-tags">
-          <span class="tag">Next.js 16</span><span class="tag">Go Fiber</span><span class="tag">TypeScript</span><span class="tag">Radix UI</span><span class="tag">PostgreSQL</span><span class="tag">JWT</span>
-        </div>
-      </div>
-
-      <div class="pro-card fade-in" style="border-top: 2px solid var(--purple);">
-        <div class="pro-card-top">
-          <div style="font-size:1.5rem;">🤖</div>
-          <span class="card-status">Active</span>
-        </div>
-        <div class="pro-title">Tanya</div>
-        <div class="pro-type">// ai-chatbot · Intelligent Support</div>
-        <div class="pro-desc">AI-powered Interactive Support & Help Agent platform with async processing. Multi-service architecture with FastAPI, Celery queues, and Angular frontend.</div>
-        <div class="card-tags">
-          <span class="tag">Python 3.11</span><span class="tag">FastAPI</span><span class="tag">Celery</span><span class="tag">Angular 18</span><span class="tag">Docker</span>
-        </div>
-      </div>
-
-      <div class="pro-card fade-in" style="border-top: 2px solid var(--cyan);">
-        <div class="pro-card-top">
-          <div style="font-size:1.5rem;">⚡</div>
-          <span class="card-status">Active</span>
-        </div>
-        <div class="pro-title">SimiDigital</div>
-        <div class="pro-type">// microservices · API Gateway Platform</div>
-        <div class="pro-desc">Distributed digital platform with a Go API gateway routing to 4 specialized Go microservices and a Next.js web frontend.</div>
-        <div style="margin: 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <div style="background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); border-radius: 8px; padding: 8px 10px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--cyan); margin-bottom:3px;">API Gateway</div>
-            <div style="font-size:0.72rem; color:var(--text-dim);">Request routing & auth layer</div>
-          </div>
-          <div style="background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); border-radius: 8px; padding: 8px 10px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--cyan); margin-bottom:3px;">Capry</div>
-            <div style="font-size:0.72rem; color:var(--text-dim);">Capacity, reservations & SFA</div>
-          </div>
-          <div style="background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); border-radius: 8px; padding: 8px 10px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--cyan); margin-bottom:3px;">Edge Facilities</div>
-            <div style="font-size:0.72rem; color:var(--text-dim);">Sites, racks, ports & patch panels</div>
-          </div>
-          <div style="background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); border-radius: 8px; padding: 8px 10px;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--cyan); margin-bottom:3px;">FA</div>
-            <div style="font-size:0.72rem; color:var(--text-dim);">Financial accounts & history</div>
-          </div>
-          <div style="background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); border-radius: 8px; padding: 8px 10px; grid-column: span 2;">
-            <div style="font-size:0.7rem; font-weight:700; color:var(--cyan); margin-bottom:3px;">PayMe</div>
-            <div style="font-size:0.72rem; color:var(--text-dim);">Payments, collections, expenses & transactions</div>
-          </div>
-        </div>
-        <div class="card-tags">
-          <span class="tag">Go 1.20</span><span class="tag">API Gateway</span><span class="tag">Microservices</span><span class="tag">Next.js</span><span class="tag">Docker</span><span class="tag">Kubernetes</span>
-        </div>
-      </div>
-
-      <div class="pro-card fade-in" style="border-top: 2px solid var(--orange);">
-        <div class="pro-card-top">
-          <div style="font-size:1.5rem;">📱</div>
-          <span class="card-status">Active</span>
-        </div>
-        <div class="pro-title">Sharp Portal</div>
-        <div class="pro-type">// web-portal · SMS Management</div>
-        <div class="pro-desc">Enterprise SMS pricing and management portal with LDAP authentication, Laravel Horizon queue management, AWS S3 storage, and full Kubernetes deployment.</div>
-        <div class="card-tags">
-          <span class="tag">PHP 8.4</span><span class="tag">Laravel 11</span><span class="tag">Horizon</span><span class="tag">LDAP</span><span class="tag">AWS S3</span><span class="tag">Kubernetes</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- FOOTER / CONTACT -->
-<footer id="contact">
-  <div class="container">
-    <div class="footer-content">
-      <div>
-        <div class="footer-brand-name">Aman</div>
-        <div class="footer-tagline">Full-Stack Software Engineer building platforms that serve people — from boats to mosques, from GPUs to homes. Based in Malaysia. Open to opportunities.</div>
-      </div>
-      <div class="footer-col">
-        <h4>Projects</h4>
-        <a href="#projects">GoSea</a>
-        <a href="#projects">GoMasjid</a>
-        <a href="#projects">ScalpBot</a>
-        <a href="#projects">MyResidence</a>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        
-        
-        
-        
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2025 Aman. All rights reserved.</div>
-      <div class="footer-love">Built with <span>♥</span> and bismillah.</div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // Scroll fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(el => {
-      if (el.isIntersecting) { el.target.classList.add('visible'); }
+  <script>
+    // Particles.js config
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: "#3b82f6" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 0.5 } } }
+      },
+      retina_detect: true
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // Counter animation
-  function animateCount(el, target, suffix='') {
-    let start = 0;
-    const duration = 1500;
-    const step = target / (duration / 16);
-    const update = () => {
-      start = Math.min(start + step, target);
-      el.textContent = Math.floor(start) + suffix;
-      if (start < target) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
-
-  const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        document.querySelectorAll('.stat-num').forEach(el => {
-          const text = el.textContent;
-          const num = parseInt(text);
-          const suffix = text.replace(num.toString(), '');
-          animateCount(el, num, suffix);
-        });
-        statsObserver.disconnect();
-      }
+    // Typed.js
+    new Typed('.type-text', {
+      strings: ['serve people.', 'scale massively.', 'solve problems.'],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 2000,
+      loop: true
     });
-  }, { threshold: 0.5 });
 
-  const statsBar = document.querySelector('.stats-bar');
-  if (statsBar) statsObserver.observe(statsBar);
-</script>
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero Anim
+    gsap.from(".gsap-hero > *", {
+      y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2
+    });
+    gsap.from(".gsap-hero-right > div", {
+      scale: 0.8, opacity: 0, duration: 1, stagger: 0.1, ease: "back.out(1.7)", delay: 0.5
+    });
+
+    // Scroll Fade Up
+    gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    });
+  </script>
 </body>
 </html>
