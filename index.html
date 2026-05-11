@@ -1,360 +1,746 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Abdul Rahman M Asmuei</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="icon" href="" sizes="32x32">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman — Full-Stack Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+  :root {
+    --bg: #050a14;
+    --bg2: #0a1628;
+    --bg3: #0f1e38;
+    --blue: #1a7eff;
+    --blue-glow: rgba(26,126,255,0.25);
+    --orange: #ff6b2b;
+    --orange-glow: rgba(255,107,43,0.2);
+    --cyan: #00d4ff;
+    --green: #00e5a0;
+    --purple: #9b59ff;
+    --gold: #ffd166;
+    --text: #e8edf5;
+    --text-dim: #7a8fa8;
+    --border: rgba(255,255,255,0.07);
+    --glass: rgba(255,255,255,0.04);
+  }
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<span class="icon fa-gem"></span>
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Abdul Rahman M Asmuei</h1>
-								<p>A Developer professional with over a decade of experience<br />
-								 Developer | Mentor |<br />
-								</p>
-								
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<!-- <li><a href="#mybooks">My Books</a></li>
-								<li><a href="">YouTube</a></li>
-								<li><a href="">Medium</a></li>
-								<li><a href="">LinkedIn</a></li> -->
-								<li><a href="#contact">Contact</a></li>
-								<!--<li><a href="#elements">Elements</a></li>-->
-							</ul>
-						</nav>
-					</header>
+  html { scroll-behavior: smooth; }
 
-				<!-- Main -->
-					<div id="main">
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
 
-						<!-- Intro -->
-							<article id="intro">
-								<h2 class="major">Intro</h2>
-								<center><span class="image main"><img src="" alt="" style="width: 25%; height: 25%"/></span></center>
-								<p>I am Abdul Rahman M Asmuei, a Developer professional with over a decade of experience in iot, advanced analytics and applied machine learning. 								
-							</article>
+  /* ── Animated gradient bg ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 20%, rgba(26,126,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,107,43,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0,212,255,0.04) 0%, transparent 60%);
+    animation: bgPulse 12s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes bgPulse {
+    0%   { transform: translate(0,0) rotate(0deg); }
+    100% { transform: translate(2%,2%) rotate(3deg); }
+  }
 
-						<!-- Work -->
-							<!-- <article id="mybooks">
-								<h2 class="major">My Books</h2>
-								<span class="image main"><a href="https://www.amazon.com.au/gp/product/1785286544/ref=dbs_a_def_rwt_bibl_vppi_i0"><img src="images/DataScienceEssentials.png" alt="" style="width:160px;height:240px;"/></a></span>
-								<p>This book will introduce you to various important concepts in the field of data science using R. We start by reading data from multiple sources, then move on to processing the data, extracting hidden patterns, building predictive and forecasting models, building a recommendation engine, and communicating to the user through stunning visualizations and dashboards. By the end of this book, you will have an understanding of some very important techniques in data science, be able to implement them using R, understand and interpret the outcomes, and know how they helps businesses make a decision.</p>
-								<br> 
-								<br>
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
-								<span class="image main"><a href="https://www.amazon.com.au/gp/product/1784396311/ref=dbs_a_def_rwt_bibl_vppi_i1"><img src="images/MasteringSocialMediaMining.png" alt="" style="width:160px;height:240px;"/></a></span>
-								<p>This book will teach you how powerful business cases are solved by applying machine learning techniques on social media data. You will learn about important and recent developments in the field of social media, along with a few advanced topics such as Open Authorization (OAuth). Through practical examples, you will access data from R using APIs of various social media sites such as Twitter, Facebook, Instagram, GitHub, Foursquare, LinkedIn, Blogger, and other networks. This book will also provide you with detailed explanations on the implementation of various use cases using R programming. </p>
-								
-							</article> -->
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(5,10,20,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .nav-logo {
+    font-weight: 800; font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none; font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
 
-						<!-- About -->
-							<article id="about">
-								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								
-							</article>
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 0 80px;
+    position: relative;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(26,126,255,0.1);
+    border: 1px solid rgba(26,126,255,0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.82rem; color: var(--cyan);
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag span { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
-						<!-- Contact -->
-							<article id="contact">
-								<h2 class="major">Contact</h2>
-								<form action="https://formspree.io/f/xleawelp" method="POST">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-										<li><input type="reset" value="Reset" /></li>
-									</ul>
-								</form>
-							</article>
+  h1 {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 50%, var(--orange) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text-dim); max-width: 480px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    color: #fff; border: none; padding: 14px 28px;
+    border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px var(--blue-glow);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--blue-glow); }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border); padding: 14px 28px;
+    border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: var(--glass); }
 
-						<!-- Elements  -->
-							<article id="elements">
-								<h2 class="major">Elements</h2>
+  /* hero visual */
+  .hero-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .mini-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .mini-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
+  .mini-card:nth-child(1) { grid-column: span 2; }
+  .mini-card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .mini-card-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .mini-card-desc { font-size: 0.78rem; color: var(--text-dim); }
+  .mini-badge {
+    display: inline-block; font-size: 0.7rem; padding: 2px 8px;
+    border-radius: 100px; margin-top: 8px; font-weight: 600;
+  }
 
-								<section>
-									<h3 class="major">Text</h3>
-									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-									This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-									This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-									<hr />
-									<h2>Heading Level 2</h2>
-									<h3>Heading Level 3</h3>
-									<h4>Heading Level 4</h4>
-									<h5>Heading Level 5</h5>
-									<h6>Heading Level 6</h6>
-									<hr />
-									<h4>Blockquote</h4>
-									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-									<h4>Preformatted</h4>
-									<pre><code>i = 0;
+  /* ── STATS ── */
+  #stats { padding: 40px 0; }
+  .stats-bar {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+  }
+  .stat-item {
+    padding: 32px 24px; text-align: center;
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(255,255,255,0.03); }
+  .stat-num {
+    font-size: 2.5rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 0.85rem; color: var(--text-dim); font-weight: 500; }
 
-while (!deck.isInOrder()) {
-    print 'Iteration ' + i;
-    deck.shuffle();
-    i++;
-}
+  /* ── SECTIONS ── */
+  section { padding: 80px 0; }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800; line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-sub { color: var(--text-dim); font-size: 1rem; max-width: 520px; margin: 0 auto; }
 
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-								</section>
+  /* ── PROJECT CARDS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+  .project-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.12); }
+  .project-card:hover::before { opacity: 1; }
 
-								<section>
-									<h3 class="major">Lists</h3>
+  /* Color themes */
+  .card-cyan  { --accent: var(--cyan);  --accent-glow: rgba(0,212,255,0.15); }
+  .card-green { --accent: var(--green); --accent-glow: rgba(0,229,160,0.15); }
+  .card-gold  { --accent: var(--gold);  --accent-glow: rgba(255,209,102,0.15); }
+  .card-purple{ --accent: var(--purple);--accent-glow: rgba(155,89,255,0.15); }
+  .card-blue  { --accent: var(--blue);  --accent-glow: rgba(26,126,255,0.15); }
+  .card-orange{ --accent: var(--orange);--accent-glow: rgba(255,107,43,0.15); }
 
-									<h4>Unordered</h4>
-									<ul>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
+  .project-card:hover { box-shadow: 0 20px 60px var(--accent-glow, rgba(26,126,255,0.1)); }
+  .project-card::before { background: linear-gradient(90deg, transparent, var(--accent, var(--blue)), transparent); }
 
-									<h4>Alternate</h4>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .card-icon { font-size: 2rem; }
+  .card-status {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.72rem; font-weight: 600;
+    background: rgba(0,229,160,0.1);
+    color: var(--green); border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 100px; padding: 3px 10px;
+  }
+  .card-status::before { content: ''; width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
 
-									<h4>Ordered</h4>
-									<ol>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis viverra.</li>
-										<li>Felis enim feugiat.</li>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis lorem.</li>
-										<li>Felis enim et feugiat.</li>
-									</ol>
-									<h4>Icons</h4>
-									<ul class="icons">
-										<li><a href="https://twitter.com/rsharankumar" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="https://www.facebook.com/rsharankumar" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="https://www.instagram.com/rsharankumar/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="https://github.com/rsharankumar" class="icon brands fa-github"><span class="label">Github</span></a></li>
-									</ul>
+  .card-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+  .card-type { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
+  .card-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 20px; }
 
-									<h4>Actions</h4>
-									<ul class="actions">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</section>
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 0.72rem; font-weight: 600;
+    padding: 4px 10px; border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    transition: background 0.2s, color 0.2s;
+  }
+  .project-card:hover .tag { background: rgba(255,255,255,0.08); }
 
-								<section>
-									<h3 class="major">Table</h3>
-									<h4>Default</h4>
-									<div class="table-wrapper">
-										<table>
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Price</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Item One</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Two</td>
-													<td>Vis ac commodo adipiscing arcu aliquet.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Three</td>
-													<td> Morbi faucibus arcu accumsan lorem.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Four</td>
-													<td>Vitae integer tempus condimentum.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Five</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2"></td>
-													<td>100.00</td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
+  .card-footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .card-link { font-size: 0.82rem; color: var(--accent, var(--blue)); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+  .card-link:hover { gap: 8px; }
+  .card-link::after { content: '→'; transition: margin 0.2s; }
+  .card-priority {
+    font-size: 0.7rem; padding: 2px 8px; border-radius: 100px;
+    font-weight: 700;
+  }
+  .priority-high { background: rgba(255,107,43,0.15); color: var(--orange); }
+  .priority-medium { background: rgba(255,209,102,0.15); color: var(--gold); }
 
-									<h4>Alternate</h4>
-									<div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Price</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Item One</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Two</td>
-													<td>Vis ac commodo adipiscing arcu aliquet.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Three</td>
-													<td> Morbi faucibus arcu accumsan lorem.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Four</td>
-													<td>Vitae integer tempus condimentum.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Five</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2"></td>
-													<td>100.00</td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-								</section>
+  /* ── SKILLS ── */
+  #skills { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .skill-group {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.2s;
+  }
+  .skill-group:hover { border-color: rgba(255,255,255,0.12); }
+  .skill-group-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 0.8rem; font-weight: 600;
+    padding: 5px 12px; border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .skill-tag:hover { transform: translateY(-2px); }
+  .st-blue   { background: rgba(26,126,255,0.12);  color: #60a5fa; border: 1px solid rgba(26,126,255,0.2); }
+  .st-cyan   { background: rgba(0,212,255,0.1);    color: var(--cyan); border: 1px solid rgba(0,212,255,0.2); }
+  .st-green  { background: rgba(0,229,160,0.1);    color: var(--green); border: 1px solid rgba(0,229,160,0.2); }
+  .st-orange { background: rgba(255,107,43,0.1);   color: var(--orange); border: 1px solid rgba(255,107,43,0.2); }
+  .st-purple { background: rgba(155,89,255,0.1);   color: var(--purple); border: 1px solid rgba(155,89,255,0.2); }
+  .st-gold   { background: rgba(255,209,102,0.1);  color: var(--gold); border: 1px solid rgba(255,209,102,0.2); }
 
-								<section>
-									<h3 class="major">Buttons</h3>
-									<ul class="actions">
-										<li><a href="#" class="button primary">Primary</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="#" class="button">Default</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-										<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-									</ul>
-									<ul class="actions">
-										<li><span class="button primary disabled">Disabled</span></li>
-										<li><span class="button disabled">Disabled</span></li>
-									</ul>
-								</section>
+  /* ── PROFESSIONAL SECTION ── */
+  #professional { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
+  .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .pro-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .pro-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.1); }
+  .pro-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .pro-title { font-size: 1rem; font-weight: 700; }
+  .pro-type { font-size: 0.72rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
+  .pro-desc { font-size: 0.83rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; }
 
-								<section>
-									<h3 class="major">Form</h3>
-									<form method="post" action="#">
-										<div class="fields">
-											<div class="field half">
-												<label for="demo-name">Name</label>
-												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
-											</div>
-											<div class="field half">
-												<label for="demo-email">Email</label>
-												<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
-											</div>
-											<div class="field">
-												<label for="demo-category">Category</label>
-												<select name="demo-category" id="demo-category">
-													<option value="">-</option>
-													<option value="1">Manufacturing</option>
-													<option value="1">Shipping</option>
-													<option value="1">Administration</option>
-													<option value="1">Human Resources</option>
-												</select>
-											</div>
-											<div class="field half">
-												<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-												<label for="demo-priority-low">Low</label>
-											</div>
-											<div class="field half">
-												<input type="radio" id="demo-priority-high" name="demo-priority">
-												<label for="demo-priority-high">High</label>
-											</div>
-											<div class="field half">
-												<input type="checkbox" id="demo-copy" name="demo-copy">
-												<label for="demo-copy">Email me a copy</label>
-											</div>
-											<div class="field half">
-												<input type="checkbox" id="demo-human" name="demo-human" checked>
-												<label for="demo-human">Not a robot</label>
-											</div>
-											<div class="field">
-												<label for="demo-message">Message</label>
-												<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-											</div>
-										</div>
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</form>
-								</section>
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 60px 0 40px;
+  }
+  .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand-name {
+    font-size: 1.5rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 8px;
+  }
+  .footer-tagline { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; max-width: 300px; }
+  .footer-col h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 14px; }
+  .footer-col a { display: block; color: var(--text-dim); text-decoration: none; font-size: 0.88rem; margin-bottom: 8px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.82rem; color: var(--text-dim); }
+  .footer-love { font-size: 0.82rem; color: var(--text-dim); }
+  .footer-love span { color: var(--orange); }
 
-							</article>
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-					</div>
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0; }
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; Copyright <strong>PixelTech Studio</strong></p>
-					</footer>
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .footer-content { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
 
-			</div>
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
 
-		<!-- BG -->
-			<div id="bg"></div>
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-logo">AM / DEV</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#professional">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag"><span></span> Available for opportunities</div>
+        <h1>I build platforms<br>that <span class="gradient-text">serve people.</span></h1>
+        <p class="hero-sub">Full-Stack Software Engineer based in Malaysia — crafting scalable web platforms, AI systems, and cloud infrastructure that make a real difference.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View My Work</a>
+          <a href="#contact" class="btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mini-card card-cyan" style="border-top: 2px solid var(--cyan);">
+          <div class="mini-card-icon">⛵</div>
+          <div class="mini-card-name">GoSea Platform</div>
+          <div class="mini-card-desc">Boat rental & services</div>
+          <div class="mini-badge" style="background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);">gosea.my</div>
+        </div>
+        <div class="mini-card card-green" style="border-top: 2px solid var(--green);">
+          <div class="mini-card-icon">🕌</div>
+          <div class="mini-card-name">GoMasjid</div>
+          <div class="mini-card-desc">Mosque management</div>
+        </div>
+        <div class="mini-card card-purple" style="border-top: 2px solid var(--purple);">
+          <div class="mini-card-icon">🏠</div>
+          <div class="mini-card-name">MyResidence</div>
+          <div class="mini-card-desc">Residential platform</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-	</body>
+<!-- STATS -->
+<div id="stats">
+  <div class="container">
+    <div class="stats-bar fade-in">
+      <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">Active Projects</div></div>
+      <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Languages Mastered</div></div>
+      <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Years Building</div></div>
+      <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Live Production Platforms</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PERSONAL PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-eyebrow">Personal Projects</div>
+      <h2>Things I <span class="gradient-text">Built & Own</span></h2>
+      <p class="section-sub">From maritime platforms to mosque systems — real products solving real problems in Malaysia and beyond.</p>
+    </div>
+    <div class="projects-grid">
+
+      <!-- GoSea -->
+      <div class="project-card card-cyan fade-in">
+        <div class="card-header">
+          <div class="card-icon">⛵</div>
+          <div class="card-status">Active</div>
+        </div>
+        <div class="card-title">GoSea</div>
+        <div class="card-type">// fullstack-webapp · Multi-Role Platform</div>
+        <div class="card-desc">Multi-role boat rental and services platform connecting customers, boat owners, and affiliates. Deployed live at gosea.my with Docker + k3s production infrastructure.</div>
+        <div class="card-tags">
+          <span class="tag">Next.js 14</span><span class="tag">React 18</span><span class="tag">Tailwind CSS</span>
+          <span class="tag">Express.js</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Redis</span><span class="tag">Docker</span><span class="tag">k3s</span>
+        </div>
+        <div class="card-footer">
+          <a href="https://gosea.my" target="_blank" class="card-link">gosea.my</a>
+          <span class="card-priority priority-high">High Priority</span>
+        </div>
+      </div>
+
+      <!-- GoMasjid -->
+      <div class="project-card card-green fade-in">
+        <div class="card-header">
+          <div class="card-icon">🕌</div>
+          <div class="card-status">Active</div>
+        </div>
+        <div class="card-title">GoMasjid</div>
+        <div class="card-type">// fullstack-webapp · Mosque Management</div>
+        <div class="card-desc">Comprehensive mosque management system with GoMasjidPro portal, multi-service Go backend, and integrated GoMasjidPay payment service. Built for the community.</div>
+        <div class="card-tags">
+          <span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">shadcn/ui</span>
+          <span class="tag">Tailwind CSS 4</span><span class="tag">Go</span><span class="tag">Kubernetes</span>
+          <span class="tag">DOKS</span><span class="tag">Docker</span>
+        </div>
+        <div class="card-footer">
+          <a href="#projects" class="card-link">View Project</a>
+          <span class="card-priority priority-high">High Priority</span>
+        </div>
+      </div>
+
+      <!-- ScalpBot -->
+      <div class="project-card card-gold fade-in">
+        <div class="card-header">
+          <div class="card-icon">📈</div>
+          <div class="card-status">Active</div>
+        </div>
+        <div class="card-title">ScalpBot</div>
+        <div class="card-type">// trading-bot · Algorithmic Trading</div>
+        <div class="card-desc">Automated crypto scalp trading engine using EMA cross + volume filter strategy on BTC/USDT & ETH/USDT. Real-time WebSocket feeds with full backtest infrastructure.</div>
+        <div class="card-tags">
+          <span class="tag">Python 3.11</span><span class="tag">Binance</span><span class="tag">ccxt</span>
+          <span class="tag">WebSocket</span><span class="tag">PostgreSQL</span><span class="tag">EMA Strategy</span>
+        </div>
+        <div class="card-footer">
+          <a href="#projects" class="card-link">View Project</a>
+          <span class="card-priority priority-medium">Medium Priority</span>
+        </div>
+      </div>
+
+      <!-- MyResidence -->
+      <div class="project-card card-purple fade-in">
+        <div class="card-header">
+          <div class="card-icon">🏠</div>
+          <div class="card-status">Active</div>
+        </div>
+        <div class="card-title">MyResidence</div>
+        <div class="card-type">// fullstack-webapp · Web + Mobile</div>
+        <div class="card-desc">End-to-end residential management platform with three surfaces: web portal, Go backend, and a React Native mobile app for residents and property management.</div>
+        <div class="card-tags">
+          <span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Go 1.26</span>
+          <span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Radix UI</span>
+          <span class="tag">Docker</span>
+        </div>
+        <div class="card-footer">
+          <a href="#projects" class="card-link">View Project</a>
+          <span class="card-priority priority-medium">Medium Priority</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-eyebrow">Technical Arsenal</div>
+      <h2>Skills & <span class="gradient-text">Technologies</span></h2>
+      <p class="section-sub">Across frontend, backend, mobile, and infrastructure — I build end-to-end.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag st-blue">Go</span>
+          <span class="skill-tag st-blue">TypeScript</span>
+          <span class="skill-tag st-blue">JavaScript</span>
+          <span class="skill-tag st-blue">Python</span>
+          <span class="skill-tag st-blue">PHP</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag st-cyan">Next.js</span>
+          <span class="skill-tag st-cyan">React</span>
+          <span class="skill-tag st-cyan">React Native</span>
+          <span class="skill-tag st-cyan">Angular</span>
+          <span class="skill-tag st-cyan">Tailwind CSS</span>
+          <span class="skill-tag st-cyan">shadcn/ui</span>
+          <span class="skill-tag st-cyan">Radix UI</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Backend</div>
+        <div class="skill-tags">
+          <span class="skill-tag st-green">Go Fiber</span>
+          <span class="skill-tag st-green">Express.js</span>
+          <span class="skill-tag st-green">FastAPI</span>
+          <span class="skill-tag st-green">Laravel</span>
+          <span class="skill-tag st-green">Prisma</span>
+          <span class="skill-tag st-green">Celery</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag st-purple">PostgreSQL</span>
+          <span class="skill-tag st-purple">Redis</span>
+          <span class="skill-tag st-purple">MySQL</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">DevOps & Infrastructure</div>
+        <div class="skill-tags">
+          <span class="skill-tag st-orange">Docker</span>
+          <span class="skill-tag st-orange">Kubernetes</span>
+          <span class="skill-tag st-orange">k3s</span>
+          <span class="skill-tag st-orange">DOKS</span>
+          <span class="skill-tag st-orange">Traefik</span>
+          <span class="skill-tag st-orange">AWS S3</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Tools & Protocols</div>
+        <div class="skill-tags">
+          <span class="skill-tag st-gold">WebSocket</span>
+          <span class="skill-tag st-gold">JWT</span>
+          <span class="skill-tag st-gold">LDAP</span>
+          <span class="skill-tag st-gold">REST API</span>
+          <span class="skill-tag st-gold">ccxt</span>
+          <span class="skill-tag st-gold">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROFESSIONAL -->
+<section id="professional">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-eyebrow">Professional Work</div>
+      <h2>Enterprise <span class="gradient-text">Contributions</span></h2>
+      <p class="section-sub">Production-grade systems built for organizations — from AI platforms to GPU infrastructure.</p>
+    </div>
+    <div class="pro-grid">
+
+      <div class="pro-card fade-in" style="border-top: 2px solid var(--blue);">
+        <div class="pro-card-top">
+          <div style="font-size:1.5rem;">🖥️</div>
+          <span class="card-status">Active</span>
+        </div>
+        <div class="pro-title">GPUaaS Platform</div>
+        <div class="pro-type">// enterprise-saas · Multi-Tenant Cloud</div>
+        <div class="pro-desc">GPU-as-a-Service SaaS with multi-tenant billing, IAM, and channel partner management. Full org hierarchy: platform → partner → reseller → customer.</div>
+        <div class="card-tags">
+          <span class="tag">Next.js 16</span><span class="tag">Go Fiber</span><span class="tag">TypeScript</span><span class="tag">Radix UI</span><span class="tag">PostgreSQL</span><span class="tag">JWT</span>
+        </div>
+      </div>
+
+      <div class="pro-card fade-in" style="border-top: 2px solid var(--purple);">
+        <div class="pro-card-top">
+          <div style="font-size:1.5rem;">🤖</div>
+          <span class="card-status">Active</span>
+        </div>
+        <div class="pro-title">Tanya (AISHA)</div>
+        <div class="pro-type">// ai-chatbot · Intelligent Support</div>
+        <div class="pro-desc">AI-powered Interactive Support & Help Agent platform with async processing. Multi-service architecture with FastAPI, Celery queues, and Angular frontend.</div>
+        <div class="card-tags">
+          <span class="tag">Python 3.11</span><span class="tag">FastAPI</span><span class="tag">Celery</span><span class="tag">Angular 18</span><span class="tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="pro-card fade-in" style="border-top: 2px solid var(--cyan);">
+        <div class="pro-card-top">
+          <div style="font-size:1.5rem;">⚡</div>
+          <span class="card-status">Active</span>
+        </div>
+        <div class="pro-title">SimiDigital</div>
+        <div class="pro-type">// microservices · API Gateway</div>
+        <div class="pro-desc">Distributed digital platform with a Go API gateway routing to multiple Go microservices (capry, edge-facilities, fa, payme) and a Node.js web frontend.</div>
+        <div class="card-tags">
+          <span class="tag">Go 1.20</span><span class="tag">API Gateway</span><span class="tag">Microservices</span><span class="tag">Docker</span><span class="tag">Node.js</span>
+        </div>
+      </div>
+
+      <div class="pro-card fade-in" style="border-top: 2px solid var(--orange);">
+        <div class="pro-card-top">
+          <div style="font-size:1.5rem;">📱</div>
+          <span class="card-status">Active</span>
+        </div>
+        <div class="pro-title">Sharp Portal</div>
+        <div class="pro-type">// web-portal · SMS Management</div>
+        <div class="pro-desc">Enterprise SMS pricing and management portal with LDAP authentication, Laravel Horizon queue management, AWS S3 storage, and full Kubernetes deployment.</div>
+        <div class="card-tags">
+          <span class="tag">PHP 8.4</span><span class="tag">Laravel 11</span><span class="tag">Horizon</span><span class="tag">LDAP</span><span class="tag">AWS S3</span><span class="tag">Kubernetes</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <div class="container">
+    <div class="footer-content">
+      <div>
+        <div class="footer-brand-name">Aman</div>
+        <div class="footer-tagline">Full-Stack Software Engineer building platforms that serve people — from boats to mosques, from GPUs to homes. Based in Malaysia. Open to opportunities.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <a href="#projects">GoSea</a>
+        <a href="#projects">GoMasjid</a>
+        <a href="#projects">ScalpBot</a>
+        <a href="#projects">MyResidence</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:amanasmuei@gmail.com">Email Me</a>
+        <a href="https://github.com/amanasmuei" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/amanasmuei" target="_blank">LinkedIn</a>
+        <a href="https://gosea.my" target="_blank">gosea.my</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Aman. All rights reserved.</div>
+      <div class="footer-love">Built with <span>♥</span> and bismillah.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Counter animation
+  function animateCount(el, target, suffix='') {
+    let start = 0;
+    const duration = 1500;
+    const step = target / (duration / 16);
+    const update = () => {
+      start = Math.min(start + step, target);
+      el.textContent = Math.floor(start) + suffix;
+      if (start < target) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.stat-num').forEach(el => {
+          const text = el.textContent;
+          const num = parseInt(text);
+          const suffix = text.replace(num.toString(), '');
+          animateCount(el, num, suffix);
+        });
+        statsObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsObserver.observe(statsBar);
+</script>
+</body>
 </html>
